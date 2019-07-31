@@ -4,14 +4,12 @@
   "private": true,
   "scripts": {
     "start": "npm run prod",
-    "dev": "SET NODE_ENV=development npm run watch ./src/bin/www",
-    "prod": "npm run build && SET NODE_ENV=production node ./dist/bin/www",
+    "dev": "cross-env NODE_ENV=development npm run watch ./src/bin/www DEBUG=service_mart_api:server",
+    "prod": "npm run build && cross-env NODE_ENV=production node ./dist/bin/www",
     "build": "npm run clean && babel ./src --out-dir dist",
     "clean": "rimraf dist",
     "watch": "nodemon --config ./nodemon.json --"
   },
-
-
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -25,6 +23,7 @@
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "cross-env": "^5.2.0",
     "nodemon": "^1.19.1"
   }
 }
