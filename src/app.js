@@ -18,4 +18,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', indexRouter);
 
+require('../server/routes')(app);
+
+app.get('*', (req, res) => res.status(200).send({
+  message: 'Welcome to the beginning of nothingness.',
+}));
+
 export default app;
