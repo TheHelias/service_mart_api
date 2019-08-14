@@ -1,28 +1,40 @@
 version: 2
-jobs:
+
+workflows:
+  version: 2
   build:
+    jobs:
+      - test
+
+jobs:
+  test:
     docker:
-      - image: circleci/node:12.7.0
-
-      image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
+      - image: circleci/node:latest      
+      - image: circleci/postgres:latest
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: service_mart
+    environment:
+      NODE_ENV: test
+      POSTGRES_USER: postgres
+      POSTGRES_DB: service_mart
+      JWT_SECRET: sekrit
     steps:
+      - run:
+          name: Install ltree extension for Postgres
+          command: |
+            sudo apt-get update
+            sudo apt-get install postgresql--client
+            dockerize -wait tcp://localhost:5432 -timeout 1m
+            psql -U postgres -h localhost -p 5432 -c 'create extension ltree' 
       - checkout
-
       - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
+          keys: v1-dependencies-{{ checksum "package.json" }}
       - run: npm install
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      # run tests!
+      - run: npm lint
       - run: npm test
+      
