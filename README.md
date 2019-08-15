@@ -1,1 +1,2 @@
 # service_mart_api
+[![CircleCI](https://circleci.com/gh/TheHelias/service_mart_api.svg?style=svg&circle-token=9e69fa9b73efa91aa1c466b4df182dcce877d6d6)](https://circleci.com/gh/TheHelias/service_mart_api)
