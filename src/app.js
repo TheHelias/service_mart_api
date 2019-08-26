@@ -1,10 +1,9 @@
-import express from 'express';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
-
-
 import indexRouter from './routes/index';
+
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 
 const app = express();
@@ -17,5 +16,11 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 
 app.use('/', indexRouter);
+
+require('../src/dbroutes')(app);
+
+app.get('*', (req, res) => res.status(200).send({
+  message: 'Welcome to the beginning of nothingness.',
+}));
 
 export default app;
