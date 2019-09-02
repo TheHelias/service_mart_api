@@ -1,9 +1,10 @@
-import express from 'express';
+const authController = require('../controllers').users;
 
-const router = express.Router();
-/* GET home page. */
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Express' });
-});
+module.exports = (app) => {
+  app.get('/api', (req, res) => res.status(200).send({
+    message: 'Welcome to the  ServiceMart API!',
+  }));
 
-export default router;
+  app.post('/api/login', authController.login);
+  app.post('/api/register', authController.register);
+};
