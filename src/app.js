@@ -1,9 +1,10 @@
-import indexRouter from './routes/index';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import cors from 'cors';
+import testAPIRouter from './routes/index';
 
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 
 
 const app = express();
@@ -14,10 +15,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
-
-app.use('/', indexRouter);
-
-require('../src/dbroutes')(app);
+app.use(cors());
+app.use('/testAPI', testAPIRouter); // nonsense goals
+require('../src/routes')(app);
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',

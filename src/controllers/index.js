@@ -1,5 +1,5 @@
-const todos = require('./todos');
+import users from './users';
 
 module.exports = {
-  todos,
+  users,
 };
