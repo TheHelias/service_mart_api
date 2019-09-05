@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import {
+  check, body, sanitizeBody, validationResult,
+} from 'express-validator';
 import config from '../config/config';
 import authService from '../services/auth';
 import userService from '../services/user';
-
-const { check, body } = require('express-validator');
-const { sanitizeBody, validationResult } = require('express-validator');
 
 const login = [
   body('email').isEmail().withMessage('Type in an actual email').normalizeEmail(),

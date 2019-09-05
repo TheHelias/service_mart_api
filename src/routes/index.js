@@ -1,4 +1,5 @@
 const authController = require('../controllers').users;
+const vendorController = require('../controllers').vendorProfile;
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -7,4 +8,5 @@ module.exports = (app) => {
 
   app.post('/api/login', authController.login);
   app.post('/api/register', authController.register);
+  app.post('/api/create_vendor', vendorController.createVendorProfile);
 };
