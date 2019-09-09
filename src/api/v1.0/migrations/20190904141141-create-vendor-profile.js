@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false,
       },
       tel_no: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       service_category: {
