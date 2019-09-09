@@ -12,7 +12,7 @@ const createVendorProfile = [
   body('service_category', 'Please pick your service category').isLength({ min: 2 }).trim(),
   body('bio', 'fill in your bio').isLength({ max: 120 }).withMessage('Bio must be less than 121 words').trim(),
 
-  sanitizeBody('*').escape(),
+  // sanitizeBody('*').escape(),
 
   async (req, res, next) => {
     const errors = await validationResult(req);
