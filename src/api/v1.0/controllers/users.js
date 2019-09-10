@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import {
@@ -56,7 +57,11 @@ const register = [
     }
   },
 ];
+
+const userList = (req, res) => userService.getAll()
+  .then(data => res.send(data));
 module.exports = {
   register,
   login,
+  userList,
 };

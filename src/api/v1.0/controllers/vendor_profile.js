@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 // import jwt from 'jsonwebtoken';
 import {
   check, body, sanitizeBody, validationResult,
@@ -36,6 +37,10 @@ const createVendorProfile = [
     }
   },
 ];
+
+const vendorList = (req, res) => vendorService.getAll()
+  .then(data => res.send(data));
 module.exports = {
   createVendorProfile,
-}
+  vendorList,
+};
