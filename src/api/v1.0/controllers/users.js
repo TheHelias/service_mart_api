@@ -33,6 +33,7 @@ const login = [
   },
 ];
 const register = [
+  check('fullname').isLength({ min: 3 }).withMessage('Please input your full name'),
   body('email').isEmail().withMessage('Type in an actual email').normalizeEmail(),
   check('password').isLength({ min: 6 }).withMessage('must be at least 6 characters long'),
   async (req, res, next) => {
@@ -40,7 +41,7 @@ const register = [
     if (!errors.isEmpty()) {
       res.send({ errors: errors.array() })
     } else {
-      const exists = await userService.getUserByLogin(req.body.email || '');  
+      const exists = await userService.getUserByLogin(req.body.email || '');
       if (exists) {
         return res.send({
           success: false,
@@ -48,12 +49,12 @@ const register = [
         });
       }
       const user = {
+        fullname: req.body.fullname,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, config.saltRounds),
       };
       return userService.addUser(user)
-        .then(() => res.send({ success: true, password: user.password }));
-        
+        .then(() => res.send({ success: true, password: user.password, fullname: user.fullname }));
     }
   },
 ];

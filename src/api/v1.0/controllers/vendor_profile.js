@@ -18,7 +18,7 @@ const createVendorProfile = [
   async (req, res, next) => {
     const errors = await validationResult(req);
     if (!errors.isEmpty()) {
-      res.send({ errors: errors.array() })
+      res.send({ errors: errors.array() });
     } else {
       const vendor = {
         agency_name: req.body.agency_name,
@@ -39,7 +39,7 @@ const createVendorProfile = [
 ];
 
 const vendorList = (req, res) => vendorService.getAll()
-  .then(data => res.send(data));
+  .then(data => res.send({ vendorlists: data }));
 module.exports = {
   createVendorProfile,
   vendorList,

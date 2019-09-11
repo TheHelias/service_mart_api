@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Users', {
@@ -6,6 +7,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      fullname: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
@@ -22,7 +27,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-      }
+      },
     });
   },
   down: (queryInterface /* , Sequelize */) => queryInterface.dropTable('Users'),
