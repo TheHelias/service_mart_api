@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const authController = require('../controllers').users;
 const vendorController = require('../controllers').vendorProfile;
 
@@ -10,5 +11,6 @@ module.exports = (app) => {
   app.post('/api/register', authController.register);
   app.post('/api/create_vendor', vendorController.createVendorProfile);
   app.get('/api/vendors', vendorController.vendorList);
+  app.get('/api/vendors/:id', vendorController.getVendor);
   app.get('/api/users', authController.userList);
 };
