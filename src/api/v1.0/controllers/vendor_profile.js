@@ -12,6 +12,7 @@ const createVendorProfile = [
   body('tel_no').isNumeric().withMessage('Please Enter your phone number').trim(),
   body('service_category', 'Please pick your service category').isLength({ min: 2 }).trim(),
   body('bio', 'fill in your bio').isLength({ max: 120 }).withMessage('Bio must be less than 121 words').trim(),
+  body('job_specification', 'Tell us what you do').isLength({ min: 3 }).trim(),
 
   sanitizeBody('*').escape(),
 
@@ -27,6 +28,7 @@ const createVendorProfile = [
         tel_no: req.body.tel_no,
         service_category: req.body.service_category,
         bio: req.body.bio,
+        job_specification: req.body.job_specification,
       };
       return vendorService.createVendor(vendor)
         .then(() => res.send({

@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    job_specification: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
   return vendorProfile;
 };
