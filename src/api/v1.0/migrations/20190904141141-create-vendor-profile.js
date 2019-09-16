@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('vendorProfiles', {
