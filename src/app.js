@@ -3,7 +3,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
-import testAPIRouter from './routes/index';
+import testAPIRouter from './api/v1.0/routes/index';
 
 
 
@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(cors());
 app.use('/testAPI', testAPIRouter); // nonsense goals
-require('../src/routes')(app);
+require('./api/v1.0/routes')(app);
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
