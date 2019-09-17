@@ -5,6 +5,8 @@ import {
 } from 'express-validator';
 import vendorService from '../services/create_vendor';
 
+const VendorProfile = require('../models').vendorProfile;
+
 const createVendorProfile = [
   body('agency_name', 'Please fill agency name').isLength({ min: 2 }).trim(),
   body('location', 'Please fill in a location').isLength({ min: 2 }).trim(),
@@ -46,8 +48,23 @@ const vendorList = (req, res) => vendorService.getAll()
 const getVendor = (req, res) => vendorService.getById(req.params.id)
   .then(data => res.send({ vendor: data }));
 
+const vendorCategory = (req, res) => VendorProfile.findAll()
+  // .then(category => res.send({ vendor: category.service_category }));
+  .then((data) => {
+    if (typeof req.params.service_category !== 'undefined') {
+      data.filter((vendor) => {
+        if (vendor.service_category === req.params.service_category) {
+          return data;
+        }
+        res.send(data);
+      });
+    }
+  });
+// const vendorCategory = (req, res) =>
+
 module.exports = {
   createVendorProfile,
   vendorList,
   getVendor,
+  vendorCategory,
 };

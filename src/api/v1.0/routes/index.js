@@ -12,5 +12,6 @@ module.exports = (app) => {
   app.post('/api/create_vendor', vendorController.createVendorProfile);
   app.get('/api/vendors', vendorController.vendorList);
   app.get('/api/vendors/:id', vendorController.getVendor);
+  app.get('/api/vendor/category/:service_category', vendorController.vendorCategory);
   app.get('/api/users', authController.userList);
 };
