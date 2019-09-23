@@ -48,23 +48,28 @@ const vendorList = (req, res) => vendorService.getAll()
 const getVendor = (req, res) => vendorService.getById(req.params.id)
   .then(data => res.send({ vendor: data }));
 
-const vendorCategory = (req, res) => VendorProfile.findAll()
-  // .then(category => res.send({ vendor: category.service_category }));
-  .then((data) => {
-    if (typeof req.params.service_category !== 'undefined') {
-      data.filter((vendor) => {
-        if (vendor.service_category === req.params.service_category) {
-          return data;
-        }
-        res.send(data);
-      });
-    }
-  });
-// const vendorCategory = (req, res) =>
+const getCategoryVendors = (req, res) => {
+  VendorProfile.findAll({
+    limit: 100,
+    where: { service_category: req.params.service_category },
+  })
+    .then(assets => res.send({ category: assets }))
+    .catch(err => res.send({ error: err }));
+};
+
+const getLocationVendors = (req, res) => {
+  VendorProfile.findAll({
+    limit: 100,
+    where: { location: req.params.location },
+  })
+    .then(assets => res.send({ category: assets }))
+    .catch(err => res.send({ error: err }));
+};
 
 module.exports = {
   createVendorProfile,
   vendorList,
   getVendor,
-  vendorCategory,
+  getCategoryVendors,
+  getLocationVendors,
 };
