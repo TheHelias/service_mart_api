@@ -7,6 +7,8 @@ import vendorService from '../services/create_vendor';
 
 const VendorProfile = require('../models').vendorProfile;
 
+const toSentenceCase = data => data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
+
 const createVendorProfile = [
   body('agency_name', 'Please fill agency name').isLength({ min: 2 }).trim(),
   body('location', 'Please fill in a location').isLength({ min: 2 }).trim(),
@@ -51,7 +53,7 @@ const getVendor = (req, res) => vendorService.getById(req.params.id)
 const getCategoryVendors = (req, res) => {
   VendorProfile.findAll({
     limit: 100,
-    where: { service_category: req.params.service_category },
+    where: { service_category: toSentenceCase(req.params.service_category) },
   })
     .then(assets => res.send({ category: assets }))
     .catch(err => res.send({ error: err }));
@@ -60,7 +62,7 @@ const getCategoryVendors = (req, res) => {
 const getLocationVendors = (req, res) => {
   VendorProfile.findAll({
     limit: 100,
-    where: { location: req.params.location },
+    where: { location: toSentenceCase(req.params.location) },
   })
     .then(assets => res.send({ category: assets }))
     .catch(err => res.send({ error: err }));
