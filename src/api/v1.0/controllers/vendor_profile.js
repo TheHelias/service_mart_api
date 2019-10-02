@@ -5,6 +5,10 @@ import {
 } from 'express-validator';
 import vendorService from '../services/create_vendor';
 
+const VendorProfile = require('../models').vendorProfile;
+
+const toSentenceCase = data => data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
+
 const createVendorProfile = [
   body('agency_name', 'Please fill agency name').isLength({ min: 2 }).trim(),
   body('location', 'Please fill in a location').isLength({ min: 2 }).trim(),
@@ -46,8 +50,28 @@ const vendorList = (req, res) => vendorService.getAll()
 const getVendor = (req, res) => vendorService.getById(req.params.id)
   .then(data => res.send({ vendor: data }));
 
+const getCategoryVendors = (req, res) => {
+  VendorProfile.findAll({
+    limit: 100,
+    where: { service_category: toSentenceCase(req.params.service_category) },
+  })
+    .then(assets => res.send({ category: assets }))
+    .catch(err => res.send({ error: err }));
+};
+
+const getLocationVendors = (req, res) => {
+  VendorProfile.findAll({
+    limit: 100,
+    where: { location: toSentenceCase(req.params.location) },
+  })
+    .then(assets => res.send({ category: assets }))
+    .catch(err => res.send({ error: err }));
+};
+
 module.exports = {
   createVendorProfile,
   vendorList,
   getVendor,
+  getCategoryVendors,
+  getLocationVendors,
 };
