@@ -16,4 +16,5 @@ module.exports = (app) => {
   app.get('/api/vendor/category/:service_category', vendorController.getCategoryVendors);
   app.get('/api/vendor/location/:location', vendorController.getLocationVendors);
   app.get('/api/users', authController.userList);
+  app.post('/api/search', vendorController.findVendorByName);
 };
