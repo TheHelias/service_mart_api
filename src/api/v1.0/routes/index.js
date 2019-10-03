@@ -17,4 +17,7 @@ module.exports = (app) => {
   app.get('/api/vendor/location/:location', vendorController.getLocationVendors);
   app.get('/api/users', authController.userList);
   app.post('/api/search', vendorController.findVendorByName);
+  app.get('/api/checkToken', authMiddleware.checkAuth, (req, res) => {
+    res.sendStatus(200);
+  });
 };
