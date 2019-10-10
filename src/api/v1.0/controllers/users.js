@@ -18,7 +18,7 @@ const login = [
     } else {
       try {
         const token = await authService.authenticate(req.body);
-        res.send({
+        res.header('token', token).send({
           success: true,
           data: { token },
         });
