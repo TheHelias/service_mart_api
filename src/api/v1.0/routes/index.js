@@ -11,9 +11,9 @@ module.exports = (app) => {
   app.post('/api/login', authController.login);
   app.post('/api/register', authController.register);
   app.post('/api/create_vendor', vendorController.createVendorProfile);
-  app.get('/api/vendors', authMiddleware.checkAuth, vendorController.vendorList);
+  app.get('/api/vendors', vendorController.vendorList);
   app.get('/api/vendors/:id', vendorController.getVendor);
-  app.get('/api/vendor/category/:service_category', vendorController.getCategoryVendors);
+  app.get('/api/vendor/category/:service_category', authMiddleware.checkAuth, vendorController.getCategoryVendors);
   app.get('/api/vendor/location/:location', vendorController.getLocationVendors);
   app.get('/api/users', authController.userList);
   app.post('/api/search', vendorController.findVendorByName);
