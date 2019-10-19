@@ -14,17 +14,16 @@ const login = [
   async (req, res, next) => {
     const errors = await validationResult(req);
     if (!errors.isEmpty()) {
-      res.send({ errors: errors.array() });
+      res.status(401).send({ errors: errors.array() });
     } else {
       try {
         const token = await authService.authenticate(req.body);
-        res.header('x-auth-token', token).json({
+        res.status(200).header('x-auth-token', token).json({
           success: true,
           token: token,
         });
-      }
-      catch (err) {
-        res.send({
+      } catch (err) {
+        res.status(401).send({
           success: false,
           message: err.message,
         });
