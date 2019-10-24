@@ -11,7 +11,9 @@
     "prod": "npm run build && NODE_ENV=production node ./dist/bin/www",
     "build": "npm run clean && babel ./src --out-dir dist",
     "clean": "rimraf dist",
-    "watch": "nodemon --config ./nodemon.json --"
+    "watch": "nodemon --config ./nodemon.json --",
+    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
+    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
