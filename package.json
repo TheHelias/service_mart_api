@@ -11,11 +11,10 @@
     "prod": "npm run build && NODE_ENV=production node ./dist/bin/www",
     "build": "npm run clean && babel ./src --out-dir dist",
     "clean": "rimraf dist",
-    "watch": "nodemon --config ./nodemon.json --",
-    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
-    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;"
-  },
+    "watch": "nodemon --config ./nodemon.json --"  
+},
   "dependencies": {
+    "@babel/runtime": "^7.6.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
@@ -38,7 +37,6 @@
     "@babel/node": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.5.5",
-    "@babel/runtime": "^7.6.3",
     "babel-eslint": "^10.0.2",
     "cross-env": "^5.2.0",
     "eslint": "^6.1.0",
