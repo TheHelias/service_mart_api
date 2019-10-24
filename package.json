@@ -13,7 +13,7 @@
     "start": "npm run prod",
     "heroku-postbuild": "npm install --production",
     "dev": "cross-env NODE_ENV=development DEBUG=service_mart_api:server npm run watch ./src/bin/www",
-    "prod": "cross-env NODE_ENV=production node ./src/bin/www",
+    "prod": "node ./src/bin/www",
     "build": "npm run clean && babel ./src --out-dir src",
     "clean": "rimraf src",
     "watch": "nodemon --config ./nodemon.json --"
