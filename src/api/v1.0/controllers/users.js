@@ -18,7 +18,7 @@ const login = [
     } else {
       try {
         const token = await authService.authenticate(req.body);
-        res.status(200).header('x-auth-token', token).json({
+        res.status(200).header('x-auth-token', token).send({
           success: true,
           token: token,
         });
