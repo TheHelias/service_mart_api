@@ -16,8 +16,8 @@
     "prod": "npm run build && NODE_ENV=production node ./dist/bin/www",
     "build": "npm run clean && babel ./src --out-dir dist",
     "clean": "rimraf dist",
-    "watch": "nodemon --config ./nodemon.json --"  
-},
+    "watch": "nodemon --config ./nodemon.json --"
+  },
   "dependencies": {
     "@babel/runtime": "^7.6.3",
     "bcryptjs": "^2.4.3",
