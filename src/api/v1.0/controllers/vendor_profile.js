@@ -46,7 +46,7 @@ const createVendorProfile = [
 ];
 
 const vendorList = (req, res) => vendorService.getAll()
-  .then(data => res.send({ vendorlists: data }));
+  .then(data => res.send({ vendorlisnnnts: data }));
 
 const getVendor = (req, res) => vendorService.getById(req.params.id)
   .then(data => res.send({ vendor: data }));
