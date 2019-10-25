@@ -14,7 +14,7 @@ const login = [
   async (req, res, next) => {
     const errors = await validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(401).json({ errors: errors.array() });
+      res.status(401).send({ errors: errors.array() });
     } else {
       try {
         const token = await authService.authenticate(req.body);
@@ -23,7 +23,7 @@ const login = [
           token: token,
         });
       } catch (err) {
-        res.status(401).json({
+        res.status(401).send({
           success: false,
           message: err.message,
         });
@@ -38,11 +38,11 @@ const register = [
   async (req, res, next) => {
     const errors = await validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(406).json({ errors: errors.array() })
+      res.send({ errors: errors.array() })
     } else {
       const exists = await userService.getUserByLogin(req.body.email || '');
       if (exists) {
-        return res.status(403).json({
+        return res.send({
           success: false,
           message: 'Registration failed. User with this email already registered.',
         });
@@ -53,7 +53,7 @@ const register = [
         password: bcrypt.hashSync(req.body.password, config.saltRounds),
       };
       return userService.addUser(user)
-        .then(() => res.status(201).json({ success: true, password: user.password, fullname: user.fullname }));
+        .then(() => res.send({ success: true, password: user.password, fullname: user.fullname }));
     }
   },
 ];
