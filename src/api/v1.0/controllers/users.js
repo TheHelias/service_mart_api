@@ -38,11 +38,11 @@ const register = [
   async (req, res, next) => {
     const errors = await validationResult(req);
     if (!errors.isEmpty()) {
-      res.send({ errors: errors.array() })
+      res.status(406).send({ errors: errors.array() })
     } else {
       const exists = await userService.getUserByLogin(req.body.email || '');
       if (exists) {
-        return res.send({
+        return res.status(403).send({
           success: false,
           message: 'Registration failed. User with this email already registered.',
         });
@@ -53,7 +53,7 @@ const register = [
         password: bcrypt.hashSync(req.body.password, config.saltRounds),
       };
       return userService.addUser(user)
-        .then(() => res.send({ success: true, password: user.password, fullname: user.fullname }));
+        .then(() => res.status(201).send({ success: true, password: user.password, fullname: user.fullname }));
     }
   },
 ];
