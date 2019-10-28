@@ -14,8 +14,9 @@ const login = [
   async (req, res, next) => {
     const errors = await validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(401).send({
+      res.send({
         errors: errors.array(),
+        status: 401,
       });
     } else {
       try {
@@ -26,9 +27,10 @@ const login = [
           status: 200,
         });
       } catch (err) {
-        res.status(401).send({
+        res.send({
           success: false,
           message: err.message,
+          status: 401,
         });
       }
     }
