@@ -25,6 +25,9 @@ module.exports = {
   production: {
     use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
+    jwtSecret: process.env.JWT_SECRET,
+    tokenExpireTime: '6h',
+    saltingRounds: 2,
   },
 
 };
