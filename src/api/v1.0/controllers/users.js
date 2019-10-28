@@ -14,20 +14,25 @@ const login = [
   async (req, res, next) => {
     const errors = await validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(401).send({ errors: errors.array() });
+      res.send({
+        errors: errors.array(),
+        status: 401,
+      });
     } else {
       try {
         const token = await authService.authenticate(req.body);
-        res.status(200).header('x-auth-token', token).json({
+        res.header('x-auth-token', token).json({
           success: true,
           token: token,
+          status: 200,
         });
       } catch (err) {
-        res.status(401).send({
+        res.send({
           success: false,
           message: err.message,
+          status: 401,
         });
-      };
+      }
     }
   },
 ];
@@ -38,13 +43,17 @@ const register = [
   async (req, res, next) => {
     const errors = await validationResult(req);
     if (!errors.isEmpty()) {
-      res.send({ errors: errors.array() })
+      res.send({
+        errors: errors.array(),
+        status: 401,
+      })
     } else {
       const exists = await userService.getUserByLogin(req.body.email || '');
       if (exists) {
         return res.send({
           success: false,
           message: 'Registration failed. User with this email already registered.',
+          status: 401,
         });
       }
       const user = {
@@ -53,7 +62,12 @@ const register = [
         password: bcrypt.hashSync(req.body.password, config.saltRounds),
       };
       return userService.addUser(user)
-        .then(() => res.send({ success: true, password: user.password, fullname: user.fullname }));
+        .then(() => res.send({
+          success: true,
+          password: user.password,
+          fullname: user.fullname,
+          status: 200,
+        }));
     }
   },
 ];
