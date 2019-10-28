@@ -17,8 +17,8 @@ const authenticate = params => Users.findOne({
     id: user.id,
     time: new Date(),
   };
-  const token = jwt.sign(payload, config.development.jwtSecret, {
-    expiresIn: config.development.tokenExpireTime,
+  const token = jwt.sign(payload, config.development.jwtSecret || config.production.jwtSecret, {
+    expiresIn: config.development.tokenExpireTime || config.production.tokenExpireTime,
   });
   return token;
 });
