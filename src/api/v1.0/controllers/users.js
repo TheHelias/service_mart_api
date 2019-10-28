@@ -66,7 +66,7 @@ const register = [
           success: true,
           password: user.password,
           fullname: user.fullname,
-          status: 200,
+          status: 201,
         }));
     }
   },
