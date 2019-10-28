@@ -4,6 +4,7 @@ import {
   check, body, sanitizeBody, validationResult,
 } from 'express-validator';
 import vendorService from '../services/create_vendor';
+import { sequelize } from '../models';
 
 const VendorProfile = require('../models').vendorProfile;
 
@@ -68,10 +69,23 @@ const getLocationVendors = (req, res) => {
     .catch(err => res.send({ error: err }));
 };
 
+const findVendorByName = (req, res) => {
+  const agencyName = req.body.agency_name.toLowerCase();
+  VendorProfile.findAll({
+    limit: 100,
+    where: {
+      agency_name: sequelize.where(sequelize.fn('LOWER', sequelize.col('agency_name')), 'LIKE', `%${agencyName}%`)
+    },
+  })
+    .then(data => res.send({ vendor: data }))
+    .catch(err => res.send({ error: err }));
+};
+
 module.exports = {
   createVendorProfile,
   vendorList,
   getVendor,
   getCategoryVendors,
   getLocationVendors,
+  findVendorByName,
 };

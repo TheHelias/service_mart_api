@@ -23,12 +23,11 @@ module.exports = {
     dialect: 'postgres',
   },
   production: {
-    username: 'root',
-    password: null,
-    database: 'service_mart-prod',
-    host: '127.0.0.1',
-    port: 5432,
+    use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
+    jwtSecret: 'JWT_SECRET',
+    tokenExpireTime: '6h',
+    saltingRounds: 2,
   },
 
 };
